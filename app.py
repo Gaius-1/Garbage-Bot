@@ -11,7 +11,7 @@ import warnings
 warnings.filterwarnings('ignore')
 # from tensorflow.keras.models import model_from_json
 
-from shots import *
+from Cortex.shots import *
 
 #This is load the markdown page for the entire home page
 def get_file_content_as_string(path_1):
