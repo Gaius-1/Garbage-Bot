@@ -3,7 +3,7 @@ from PIL import Image
 import cv2 as cv
 import os, time
 
-PATH_TO_TEST_IMAGES = '../test_images/'
+PATH_TO_TEST_IMAGES = 'C:\\Users\\bisma\\Desktop\\Garbage-Bot-main\\Cortex\\trial'
 
 def take_photo():
     """

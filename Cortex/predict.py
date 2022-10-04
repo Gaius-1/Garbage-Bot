@@ -1,16 +1,13 @@
 import numpy as np
 import matplotlib as plt
-from keras.preprocessing import image
+from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import load_model
 import torchvision.transforms as transforms
-
-from PIL import Image
-from pathlib import Path
 
 transformations = transforms.Compose([transforms.Resize((256, 256)), transforms.ToTensor()])
 # Load the model
 model = load_model('./WASTE-8-(200 X 235)-98.28.h5', compile = True)
-classes = ["food_waste", "leaf_waste", "paper_waste", "wood_waste", "ewaste", "metal_cans", "plastic_bags", "plastic_bottles"]
+classes = ["ewaste", "food_waste", "leaf_waste", "metal_cans", "paper_waste", "plastics", "plastics", "wood_waste"]
 
 def predicted_index(image_file):
   img_width, img_height = 200, 235
@@ -26,13 +23,11 @@ def predict_waste(image_name):
   """ 
     Predict the class the garbage image fall under
   """
-  image = Image.open(Path(image_name))
-  example_image = transformations(image)
-  plt.imshow(example_image.permute(1, 2, 0))
-  
-  payload = classes[predicted_index(image_name)]
-  print("The image resembles", payload, ".")
+  # link image path for prediction
+  if type(image_name) == type(list()):
+    payload = classes[predicted_index(image_name[0])]
+    print("The image resembles", payload, ".")
+  else:
+    payload = classes[predicted_index(image_name)]
+    print("The image resembles", payload, ".")
   return payload
-
-image_file = './assets/dasani.jpg'
-predict_waste(image_file)

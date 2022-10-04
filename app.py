@@ -12,6 +12,7 @@ warnings.filterwarnings('ignore')
 # from tensorflow.keras.models import model_from_json
 
 from Cortex.shots import *
+from Cortex.predict import predict_waste
 
 #This is load the markdown page for the entire home page
 def get_file_content_as_string(path_1):
@@ -31,7 +32,7 @@ st.title('Intelligent Garbage Segregator, Garbage Bot')
 
     
 Main_image = st.image('https://imgur.com/3UtpvAy.png',caption='Source: https://www.kaggle.com/c/cdiscount-image-classification-challenge/overview ')
-readme_text=st.markdown(get_file_content_as_string('/Instructions.md'), unsafe_allow_html=True)
+readme_text=st.markdown(get_file_content_as_string('./Instructions.md'), unsafe_allow_html=True)
 
 #This is for the side menu for selecting the sections of the app          
 st.sidebar.markdown('# M E N U')
@@ -47,7 +48,7 @@ def about():
     #f =  open(my_file,'rb')
     #prof_ = f.read()
     
-    st.sidebar.image("https://imgur.com/lic0Ai2.png",width=180)
+    st.sidebar.image("robot-arm.jpg",width=180)
     st.sidebar.markdown("## Agbo & Bismark")
     st.sidebar.markdown('* ####  Connect via [LinkedIn](#)')
     st.sidebar.markdown('* ####  Connect via [Github](https://github.com/Gaius-1)')
@@ -88,24 +89,22 @@ if option == 'Run the app':
         image_file = [image_file_chosen, 1]
 
 
-    if image_file_uploaded and image_file[0]:
+    if image_file_uploaded and image_file[0] and st.sidebar.button('Load Image'):
         image = get_opened_image(image_file[0])
         st.write("""### Selected Image""", expanded = True)
         st.image(image, use_column_width = True)
-        col1, col2, col3 , col4, col5= st.columns([1,1,1,1,1])
-        col3.button("Predict")
         
         # make prediction
-        prediction = predict_garbage(image_file)
+        
+        prediction = predict_waste(image_file)
         st.subheader('Prediction')
         st.markdown(f'The predicted label is: **{prediction}**')
 
-    elif image_file_chosen and image_file[0]:
+    elif image_file_chosen and image_file[0] and st.sidebar.button('Load'):
         image = get_opened_image(os.path.join(PATH_TO_TEST_IMAGES, image_file[0]))
         st.write("""### Selected Image""", expanded = True)
         st.image(image, use_column_width = True)
-        col1, col2, col3 , col4, col5= st.columns([1,1,1,1,1])
-        col3.button("Predict")
+
 
         st.write("")
         st.write("")
@@ -113,6 +112,7 @@ if option == 'Run the app':
         st.write("")
 
         # make prediction
-        prediction = predict_garbage(image_file)
+        print(image_file)
+        prediction = predict_waste('./Cortex/trial/' + image_file[0])
         st.subheader('Prediction')
         st.markdown(f'The predicted label is: **{prediction}**')
