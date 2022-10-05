@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib as plt
 from tensorflow.keras.preprocessing import image
@@ -6,7 +7,7 @@ import torchvision.transforms as transforms
 
 transformations = transforms.Compose([transforms.Resize((256, 256)), transforms.ToTensor()])
 # Load the model
-model = load_model('./WASTE-8-(200 X 235)-98.28.h5', compile = True)
+model = load_model('WASTE-8-(200 X 235)-98.28.h5', compile = True)
 classes = ["ewaste", "food_waste", "leaf_waste", "metal_cans", "paper_waste", "plastics", "plastics", "wood_waste"]
 
 def predicted_index(image_file):
