@@ -1,4 +1,4 @@
-opencv-python==4.6.0.66
+opencv-contrib-python-headless==4.6.0.66
 Pillow==9.2.0
 pyserial==3.5
 streamlit==1.11.0
